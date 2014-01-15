@@ -15,7 +15,7 @@ setup(
     author_email='steve@somefantastic.co.uk, hugo@yunojuno.com',
     url='https://github.com/yunojuno/django-juno-testrunner.git',
     license='MIT',
-    packages=['help_pages'],
+    packages=['junorunner'],
     install_requires=['colorama'],
     extras_require={'junorunner': ['colorama', ]},
     classifiers=[

@@ -1,0 +1,11 @@
+LICENSE
+MANIFEST.in
+setup.py
+django_juno_testrunner.egg-info/PKG-INFO
+django_juno_testrunner.egg-info/SOURCES.txt
+django_juno_testrunner.egg-info/dependency_links.txt
+django_juno_testrunner.egg-info/requires.txt
+django_juno_testrunner.egg-info/top_level.txt
+junorunner/__init__.py
+junorunner/runner.py
+junorunner/testrunner.py

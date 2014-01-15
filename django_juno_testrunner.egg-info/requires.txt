@@ -1,0 +1,4 @@
+colorama
+
+[junorunner]
+colorama

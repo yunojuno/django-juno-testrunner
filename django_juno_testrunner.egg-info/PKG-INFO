@@ -1,0 +1,21 @@
+Metadata-Version: 1.1
+Name: django-juno-testrunner
+Version: 0.1
+Summary: A more useful (and slightly more glamorous) test runner for Django 1.6+ from the folks at YunoJuno
+Home-page: https://github.com/yunojuno/django-juno-testrunner.git
+Author: Steve Jalim, Hugo Rodger-Brown
+Author-email: steve@somefantastic.co.uk, hugo@yunojuno.com
+License: MIT
+Description: readme to come
+Platform: UNKNOWN
+Classifier: Environment :: Web Environment
+Classifier: Framework :: Django
+Classifier: Framework :: Django :: 1.6
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 2
+Classifier: Programming Language :: Python :: 2.7
+Classifier: Topic :: Internet :: WWW/HTTP
+Classifier: Topic :: Internet :: WWW/HTTP :: Dynamic Content
