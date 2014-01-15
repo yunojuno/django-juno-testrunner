@@ -59,10 +59,10 @@ class TextTestResult(result.TestResult):
     separator1 = '=' * 70
     separator2 = '-' * 70
 
-    RERUN_LOG_FILE_NAME = settings.get("TEST_RUNNER_RERUN_LOG_FILE_NAME", "test_rerun.txt")
-    FAILURE_LIST_FILENAME = settings.get("TEST_RUNNER_FAILURE_LIST_FILENAME", "test_failures.txt")
-    APP_DOT_PATHS_TO_REMOVE = settings.get('TEST_RUNNER_APP_DOT_PATHS_TO_REMOVE', [])
-    IMMEDIATELY_SHOW_FAILS = settings.get('TEST_RUNNER_IMMEDIATELY_SHOW_FAILS', True)
+    RERUN_LOG_FILE_NAME = getattr(settings, "TEST_RUNNER_RERUN_LOG_FILE_NAME", "test_rerun.txt")
+    FAILURE_LIST_FILENAME = getattr(settings, "TEST_RUNNER_FAILURE_LIST_FILENAME", "test_failures.txt")
+    APP_DOT_PATHS_TO_REMOVE = getattr(settings, 'TEST_RUNNER_APP_DOT_PATHS_TO_REMOVE', [])
+    IMMEDIATELY_SHOW_FAILS = getattr(settings, 'TEST_RUNNER_IMMEDIATELY_SHOW_FAILS', True)
 
     def __init__(self, stream, descriptions, verbosity, total_tests=None):
         super(TextTestResult, self).__init__()
