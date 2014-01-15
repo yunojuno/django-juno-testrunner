@@ -1,5 +1,6 @@
 LICENSE
 MANIFEST.in
+README.md
 setup.py
 django_juno_testrunner.egg-info/PKG-INFO
 django_juno_testrunner.egg-info/SOURCES.txt

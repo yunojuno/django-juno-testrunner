@@ -7,6 +7,8 @@ Author: Steve Jalim, Hugo Rodger-Brown
 Author-email: steve@somefantastic.co.uk, hugo@yunojuno.com
 License: MIT
 Description: readme to come
+        
+        
 Platform: UNKNOWN
 Classifier: Environment :: Web Environment
 Classifier: Framework :: Django
