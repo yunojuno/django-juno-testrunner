@@ -61,7 +61,6 @@ class TextTestResult(result.TestResult):
 
     RERUN_LOG_FILE_NAME = getattr(settings, "TEST_RUNNER_RERUN_LOG_FILE_NAME", "test_rerun.txt")
     FAILURE_LIST_FILENAME = getattr(settings, "TEST_RUNNER_FAILURE_LIST_FILENAME", "test_failures.txt")
-    APP_DOT_PATHS_TO_REMOVE = getattr(settings, 'TEST_RUNNER_APP_DOT_PATHS_TO_REMOVE', [])
     IMMEDIATELY_SHOW_FAILS = getattr(settings, 'TEST_RUNNER_IMMEDIATELY_SHOW_FAILS', True)
 
     def __init__(self, stream, descriptions, verbosity, total_tests=None):
@@ -101,13 +100,6 @@ class TextTestResult(result.TestResult):
                 _file.close()
             except AttributeError:
                 pass
-
-    def extractAppName(self, test_module_string):
-
-        for path in self.APP_DOT_PATHS_TO_REMOVE:
-            test_module_string = test_module_string.replace(path, "")
-
-        return test_module_string.split(".")[0]
 
     def addtoErrorLog(self, test, formatted_error):
         self.error_log_stream.writeln(
