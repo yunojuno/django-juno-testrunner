@@ -14,14 +14,14 @@ The Python package you get, if you're interested, is called `junorunner`. That's
 Installation
 ------------
 
-1. Recommended installation is via **pip**, inside a **virtualenv**. 
+1. Recommended installation is via **pip**, inside a **virtualenv**.
 
 To get it from **PyPi** et al::
 
     $ pip install django-juno-testrunner
 
 If you want the bleeding-edge version from GitHub::
-    
+
     $ pip install -e git+ssh://git@github.com/YunoJuno/django-juno-testrunner.git#egg=django-juno-testrunner
 
 Downloading the package's source and installing it yourself is also an option.
@@ -49,7 +49,7 @@ Also by default, `junorunner` puts the traceback from all test failures and erro
     TEST_RUNNER_RERUN_LOG_FILE_NAME = “must_try_harder.txt”
     TEST_RUNNER_FAILURE_LIST_FILENAME = “post_mortem.txt”
 
-That's it. 
+That's it.
 
 Usage
 -----
@@ -59,20 +59,22 @@ Running tests
 
 ``junorunner`` will replace the default Django 1.6+ DiscoverRunner so run your tests as 'normal', whether that's via a straight ``./manage.py test``or Fabric or some big red button and an Arduino, as long as ``manage.py test`` is ultimately called, it's all good.
 
+You'll get the most informative in-flight output with `--verbosity=2`.
+
 When your test run is over, you'll get the usual detailed failure and error output, if any, plus there'll be the failures list (default name ``test_failures.txt``) and the rerun log (``test_rerun.txt``) in your project directory. If all your tests passed, these files will still exist, but will be empty.
 
 Note that as soon as you start a new test run (even if you then Ctrl-C it to death or use an axe to cut the power cable), the contents of those files will be immediately zapped.
- 
+
 Using the rerun log
 '''''''''''''''''''
 
 If you're not sure how to to pump the dot-separated failed tests back into the test client, you can do this way::
 
-    $ ./manage.py test $(cat test_rerun.txt)  # POSIX 
+    $ ./manage.py test $(cat test_rerun.txt)  # POSIX
 
 or ::
 
-    $ ./manage.py test $(< test_rerun.txt)  # bash 
+    $ ./manage.py test $(< test_rerun.txt)  # bash
 
 (At YunoJuno, we run our test suites via Fabric, with a ``:rerun`` option that reads in the file and passes each line — i.e. each bad test — as an extra arg to the test client.)
 
@@ -85,4 +87,4 @@ Roadmap
 Contributing
 ------------
 
-Contributions and bug reports are welcome. Pull requests adding jazzy new features are even more welcome 
+Contributions and bug reports are welcome. Pull requests adding jazzy new features are even more welcome
