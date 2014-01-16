@@ -9,7 +9,7 @@ This is a drop-in test-runner alternative for Django 1.6+ which takes DiscoverRu
 - Displays the elapsed time so far and a (rough) estimate of how long the remaining tests will take
 - Colourised output to make it easier to grok how your test run is going. (Plus, it's prettier.)
 
-The Python package you get, if you're interested, is called `junorunner`. That's because it came from the YunoJuno `codebase <https://www.yunojuno.com/changelog/>`_, and we'd put all of our pun skills into copy for the site, so we played it safe this time.
+The Python package you get, if you're interested, is called ``junorunner``. That's because it came from the YunoJuno `codebase <https://www.yunojuno.com/changelog/>`_, and we'd put all of our pun skills into copy for the site, so we played it safe this time.
 
 Installation
 ------------
@@ -40,14 +40,14 @@ But you knew that already, yep?
 
 3. Set some options, if you want.
 
-By default, `junorunner` will show you test errors and failures as they happen, inline in the test output, so you can ponder them while waiting for the rest of the suite to run. You can disable this, of course::
+By default, ``junorunner`` will show you test errors and failures as they happen, inline in the test output, so you can ponder them while waiting for the rest of the suite to run. You can disable this, of course::
 
     TEST_RUNNER_IMMEDIATELY_SHOW_FAILS = False
 
-Also by default, `junorunner` puts the traceback from all test failures and errors in a file called 'test_failures.txt' in the project root. Alongside that is a file with the name of each failed test in full dot-separated syntax, one test per line, to make it easier to re-run just your failed tests (more on that later). If you don't like the default names, go to town with your own choices::
+Also by default, ``junorunner`` puts the traceback from all test failures and errors in a file called 'test_failures.txt' in the project root. Alongside that is a file with the name of each failed test in full dot-separated syntax, one test per line, to make it easier to re-run just your failed tests (more on that later). If you don't like the default names, go to town with your own choices::
 
-    TEST_RUNNER_RERUN_LOG_FILE_NAME = “must_try_harder.txt”
-    TEST_RUNNER_FAILURE_LIST_FILENAME = “post_mortem.txt”
+    TEST_RUNNER_RERUN_LOG_FILE_NAME = 'must_try_harder.txt'
+    TEST_RUNNER_FAILURE_LIST_FILENAME = 'post_mortem.txt'
 
 That's it.
 
@@ -57,7 +57,7 @@ Usage
 Running tests
 '''''''''''''
 
-``junorunner`` will replace the default Django 1.6+ DiscoverRunner so run your tests as 'normal', whether that's via a straight ``./manage.py test``or Fabric or some big red button and an Arduino, as long as ``manage.py test`` is ultimately called, it's all good.
+``junorunner`` will replace the default Django 1.6+ DiscoverRunner so run your tests as 'normal', whether that's via a straight ``./manage.py test`` or Fabric or some big red button and an Arduino, as long as ``manage.py test`` is ultimately called, it's all good.
 
 You'll get the most informative in-flight output with `--verbosity=2`.
 
