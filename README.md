@@ -12,13 +12,19 @@ The Python package you get, if you’re interested, is called `junorunner`. That
 
 ## Installation
 
-1. Recommended installation is via pip, inside a virtualenv. Currently pip installation must be done as an `—editable` / `-e` option, but we’ll be moving it to pypi soon:
+1. Recommended installation is via pip, inside a virtualenv. 
+
+To get it from PyPi et al:
+
+		pip install django-juno-testrunner
+
+If you want the bleeding-edge version from GitHub:
 	
-		-e git+ssh://git@github.com/YunoJuno/django-juno-testrunner.git#egg=django-juno-testrunner
+		pip install -e git+ssh://git@github.com/YunoJuno/django-juno-testrunner.git#egg=django-juno-testrunner
 
-Downloading the package and installing it yourself is also an option. Once downloaded, run 
+Downloading the package’s source and installing it yourself is also an option. Once downloaded, run 
 
-		python manage.py setup.py
+		python setup.py
 
 But you knew that already, yep?
 
@@ -55,7 +61,9 @@ Note that as soon as you start a new test run (even if you then Ctrl-C it to dea
 If you’re not sure how to to pump the dot-separated failed tests back into the test client, you can do this way:
 
 		$ ./manage.py test $(cat test_rerun.txt)  # POSIX 
+
 or 
+
 		$ ./manage.py test $(< test_rerun.txt)  # bash 
 
 (At YunoJuno, we run our test suites via Fabric, with a `:rerun` option that reads in the file and passes each line — ie each bad test — as an extra arg to the test client.)
