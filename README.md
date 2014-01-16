@@ -28,7 +28,7 @@ Downloading the package’s source and installing it yourself is also an option.
 
 But you knew that already, yep?
 
-`django-juno-testrunner’ has one dependency, the delightful [‘colorama’](https://pypi.python.org/pypi/colorama), but this is is handled by `setup.py`
+`django-juno-testrunner` has one automatically installed dependency, the delightful [`colorama`](https://pypi.python.org/pypi/colorama)
 
 2. Update your `settings.py` to use this test runner 
 
