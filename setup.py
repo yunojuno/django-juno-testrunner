@@ -21,7 +21,6 @@ setup(
     classifiers=[
             'Environment :: Web Environment',
             'Framework :: Django',
-            'Framework :: Django :: 1.6',
             'Intended Audience :: Developers',
             'License :: OSI Approved :: MIT License', # example license
             'Operating System :: OS Independent',
