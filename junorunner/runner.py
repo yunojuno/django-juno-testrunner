@@ -12,7 +12,7 @@ from django.test.runner import DiscoverRunner
 # from django.utils.unittest import TestSuite, defaultTestLoader
 
 # CUSTOM IMPORT
-from utils.unittest.extended_runner import TextTestRunner  # this is rather than unittest.TextTestRunner
+from junorunner.utils.unittest.extended_runner import TextTestRunner  # this is rather than unittest.TextTestRunner
 
 class JunoDiscoverRunner(DiscoverRunner):
     """

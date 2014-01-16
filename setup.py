@@ -8,7 +8,7 @@ os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
 setup(
     name='django-juno-testrunner',
-    version='0.2.2',
+    version='0.2.3',
     description='A more useful (and slightly more glamorous) test runner for Django 1.6+ from the folks at YunoJuno',
     long_description=README,
     author='Steve Jalim, Hugo Rodger-Brown',
