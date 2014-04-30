@@ -106,17 +106,26 @@ class TextTestResult(result.TestResult):
             self.getDescription(test) + formatted_error + "\n" + self.separator2 + "\n"
         )
 
-    def addToReRunLog(self, test):
+    def addToReRunLog(self, errorholder):
         """
         Turn the descriptors for a failed test into a string that can
         be used to re-run the test later.
         """
-        incantation_string = "%s.%s.%s" % (
-            test.__module__,
-            test.__class__.__name__,
-            test._testMethodName,
-        )
-        self.rerun_log_stream.writeln(incantation_string)
+        if hasattr(errorholder, "_testMethodName"):
+            incantation_string = "%s.%s.%s" % (
+                errorholder.__module__,
+                errorholder.__class__.__name__,
+                errorholder._testMethodName,
+            )
+            self.rerun_log_stream.writeln(incantation_string)
+        else:
+            self.addtoErrorLog(
+                errorholder,
+                "NB: %s.%s failed before test methods could run" % (
+                    errorholder.__module__,
+                    errorholder.__class__.__name__
+                )
+            )
 
     def getDescription(self, test):
         doc_first_line = test.shortDescription()
