@@ -5,9 +5,10 @@ This is a drop-in test-runner alternative for Django 1.6+ which takes DiscoverRu
 
 - Generates a file with all failed or errored test output for inspection later
 - Generates a file listing the dot-separated paths of all failed or errored tests to make it easy to re-run just the failed ones
+- Displays test failure messages/tracebacks as they happen, without stopping the rest of the tests running
 - Displays a countdown of tests as they run, showing each test's number out of the total
 - Displays the elapsed time so far and a (rough) estimate of how long the remaining tests will take
-- Colourised output to make it easier to grok how your test run is going. (Plus, it's prettier.)
+- Colourised output to make it easier to grok how your test run is going (Plus, it's prettier)
 
 The Python package you get, if you're interested, is called ``junorunner``. That's because it came from the YunoJuno `codebase <https://www.yunojuno.com/changelog/>`_, and we'd put all of our pun skills into copy for the site, so we played it safe this time.
 
