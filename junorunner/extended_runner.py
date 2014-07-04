@@ -11,7 +11,14 @@ import time
 import unittest
 import colorama
 
-from django.utils.unittest import result
+
+try:
+    # Django 1.6
+    from django.utils.unittest import result
+except ImportError:
+    # Django 1.7+ because bundled unittest is going away
+    from unittest import result
+
 from django.conf import settings
 
 try:
