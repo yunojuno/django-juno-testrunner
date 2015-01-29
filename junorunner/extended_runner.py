@@ -5,6 +5,7 @@ easier.
 
 Also adds in output colouring to make results easier to scan.
 """
+from __future__ import unicode_literals
 
 import sys
 import time
@@ -142,7 +143,7 @@ class TextTestResult(result.TestResult):
             return str(test)
 
     def format_time(self, time):
-        return (u"%02d:%02d:%02d" % (time//3600, time//60, time%60))
+        return ("%02d:%02d:%02d" % (time//3600, time//60, time%60))
 
     @property
     def _elapsed_time(self):
@@ -163,7 +164,7 @@ class TextTestResult(result.TestResult):
         "Return the Error, Failure, Skipped counts as a formatted string."
         return (
             (
-                u"%(error_colour)s Errors: %(error_count)i%(clear)s, "
+                "%(error_colour)s Errors: %(error_count)i%(clear)s, "
                 "%(fail_colour)s Failures: %(fail_count)i%(clear)s, "
                 " Skipped: %(skip_count)i, "
                 "%(pass_colour)s Passed: %(pass_count)i %(clear)s"
@@ -375,16 +376,16 @@ class TextTestRunner(unittest.TextTestRunner):
 
         expectedFails = unexpectedSuccesses = skipped = 0
         try:
-            results = map(len, (result.expectedFailures,
+            results = list(map(len, (result.expectedFailures,
                                 result.unexpectedSuccesses,
-                                result.skipped))
+                                result.skipped)))
             expectedFails, unexpectedSuccesses, skipped = results
         except AttributeError:
             pass
         infos = []
         if not result.wasSuccessful():
             self.stream.write(SET_FAIL_OUTPUT + " FAILED " + RESET_OUTPUT)
-            failed, errored = map(len, (result.failures, result.errors))
+            failed, errored = list(map(len, (result.failures, result.errors)))
             if failed:
                 infos.append("%sfailures=%d%s" % (SET_FAILURE_TEXT, failed, RESET_OUTPUT))
             if errored:
