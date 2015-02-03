@@ -8,7 +8,7 @@ os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
 setup(
     name='django-juno-testrunner',
-    version='0.2.6',
+    version='0.3',
     description='A more useful (and slightly more glamorous) test runner for Django 1.6+ from the folks at YunoJuno',
     long_description=README,
     author='Steve Jalim, Hugo Rodger-Brown',
@@ -22,12 +22,13 @@ setup(
             'Environment :: Web Environment',
             'Framework :: Django',
             'Intended Audience :: Developers',
-            'License :: OSI Approved :: MIT License', # example license
+            'License :: OSI Approved :: MIT License',
             'Operating System :: OS Independent',
             'Programming Language :: Python',
-            # replace these appropriately if you are using Python 3
             'Programming Language :: Python :: 2',
             'Programming Language :: Python :: 2.7',
+            'Programming Language :: Python :: 3',
+            'Programming Language :: Python :: 3.4',
             'Topic :: Internet :: WWW/HTTP',
             'Topic :: Internet :: WWW/HTTP :: Dynamic Content',
         ]

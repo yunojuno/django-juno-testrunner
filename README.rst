@@ -88,4 +88,10 @@ Roadmap
 Contributing
 ------------
 
-Contributions and bug reports are welcome. Pull requests adding jazzy new features are even more welcome
+Contributions and bug reports are welcome. Pull requests adding jazzy new features are even more welcome.
+
+Thanks to:
+
+    * Tom Wardill for Python3 support - https://github.com/tomwardill
+
+
