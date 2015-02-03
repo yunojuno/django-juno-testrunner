@@ -1,6 +1,9 @@
 django-juno-testrunner
 ======================
 
+    .. image:: https://travis-ci.org/yunojuno/django-juno-testrunner.svg?branch=master
+        :target: https://travis-ci.org/yunojuno/django-juno-testrunner
+
 This is a drop-in test-runner alternative for Django 1.6+ which takes DiscoverRunner and adds the following:
 
 - Generates a file with all failed or errored test output for inspection later
