@@ -1,0 +1,2 @@
+# If you want to run tox to test the project automatically, install the following
+# tox==1.8.1
