@@ -1,4 +1,6 @@
-from runner import JunoDiscoverRunner
+from __future__ import print_function
+
+from .runner import JunoDiscoverRunner
 
 class TestSuiteRunner(JunoDiscoverRunner):
     """
@@ -20,7 +22,7 @@ class TestSuiteRunner(JunoDiscoverRunner):
         self.setup_test_environment()
         suite = self.build_suite(test_labels, extra_tests)
 
-        print "%i tests found" % len(suite._tests)
+        print("%i tests found" % len(suite._tests))
 
         old_config = self.setup_databases()
         result = self.run_suite(suite)
