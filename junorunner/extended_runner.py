@@ -43,6 +43,7 @@ SET_FAIL_OUTPUT = colorama.Fore.YELLOW + colorama.Back.RED
 SET_ERROR_OUTPUT = colorama.Fore.WHITE + colorama.Back.RED + colorama.Style.BRIGHT
 RESET_OUTPUT = colorama.Fore.RESET + colorama.Back.RESET + colorama.Style.RESET_ALL
 
+
 class _WritelnDecorator(object):
     """Used to decorate file-like objects with a handy 'writeln' method"""
     def __init__(self, stream):
@@ -67,9 +68,21 @@ class TextTestResult(result.TestResult):
     separator1 = '=' * 70
     separator2 = '-' * 70
 
-    RERUN_LOG_FILE_NAME = getattr(settings, "TEST_RUNNER_RERUN_LOG_FILE_NAME", "test_rerun.txt")
-    FAILURE_LIST_FILENAME = getattr(settings, "TEST_RUNNER_FAILURE_LIST_FILENAME", "test_failures.txt")
-    IMMEDIATELY_SHOW_FAILS = getattr(settings, 'TEST_RUNNER_IMMEDIATELY_SHOW_FAILS', True)
+    RERUN_LOG_FILE_NAME = getattr(
+        settings,
+        "TEST_RUNNER_RERUN_LOG_FILE_NAME",
+        "test_rerun.txt"
+    )
+    FAILURE_LIST_FILENAME = getattr(
+        settings,
+        "TEST_RUNNER_FAILURE_LIST_FILENAME",
+        "test_failures.txt"
+    )
+    IMMEDIATELY_SHOW_FAILS = getattr(
+        settings,
+        'TEST_RUNNER_IMMEDIATELY_SHOW_FAILS',
+        True
+    )
 
     def __init__(self, stream, descriptions, verbosity, total_tests=None):
         super(TextTestResult, self).__init__()
@@ -143,7 +156,7 @@ class TextTestResult(result.TestResult):
             return str(test)
 
     def format_time(self, time):
-        return ("%02d:%02d:%02d" % (time//3600, time//60, time%60))
+        return ("%02d:%02d:%02d" % (time//3600, time//60, time % 60))
 
     @property
     def _elapsed_time(self):
@@ -181,7 +194,7 @@ class TextTestResult(result.TestResult):
                     - len(self.errors)
                     - len(self.failures)
                     - len(self.skipped)
-                    - 1 # to account for the += 1 in startTest
+                    - 1  # to account for the += 1 in startTest
                 )
             }
         )
@@ -376,9 +389,15 @@ class TextTestRunner(unittest.TextTestRunner):
 
         expectedFails = unexpectedSuccesses = skipped = 0
         try:
-            results = list(map(len, (result.expectedFailures,
-                                result.unexpectedSuccesses,
-                                result.skipped)))
+            results = list(
+                map(
+                    len, (
+                        result.expectedFailures,
+                        result.unexpectedSuccesses,
+                        result.skipped
+                    )
+                )
+            )
             expectedFails, unexpectedSuccesses, skipped = results
         except AttributeError:
             pass

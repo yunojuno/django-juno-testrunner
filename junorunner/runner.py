@@ -1,18 +1,6 @@
-
 from django.test.runner import DiscoverRunner
+from junorunner.extended_runner import TextTestRunner
 
-# import os
-# from optparse import make_option
-
-# from django.conf import settings
-# from django.core.exceptions import ImproperlyConfigured
-# from django.test import TestCase
-# from django.test.utils import setup_test_environment, teardown_test_environment
-# from django.utils import unittest
-# from django.utils.unittest import TestSuite, defaultTestLoader
-
-# CUSTOM IMPORT
-from junorunner.extended_runner import TextTestRunner  # this is rather than unittest.TextTestRunner
 
 class JunoDiscoverRunner(DiscoverRunner):
     """

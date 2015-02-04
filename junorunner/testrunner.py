@@ -2,6 +2,7 @@ from __future__ import print_function
 
 from .runner import JunoDiscoverRunner
 
+
 class TestSuiteRunner(JunoDiscoverRunner):
     """
     Extended version of the standard Django test runner to support:
