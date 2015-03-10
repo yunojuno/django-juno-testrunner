@@ -124,7 +124,11 @@ class TextTestResult(result.TestResult):
 
     def addtoErrorLog(self, test, formatted_error):
         self.error_log_stream.writeln(
-            self.getDescription(test) + formatted_error + "\n" + self.separator2 + "\n"
+            str("%s %s\n%s\n") % (
+                str(self.getDescription(test)),
+                str(formatted_error),
+                str(self.separator2)
+            )
         )
 
     def addToReRunLog(self, errorholder):
@@ -317,7 +321,7 @@ class TextTestResult(result.TestResult):
         self.stream.writeln(self.separator2)
         # at this point, err is a tuple of:
         # (type, exception, traceback)
-        self.stream.writeln("%s" % err)
+        self.stream.writeln(str("%s") % err)
 
     def stopTestRun(self):
         super(TextTestResult, self).stopTestRun()
