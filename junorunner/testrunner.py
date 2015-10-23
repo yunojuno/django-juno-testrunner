@@ -16,10 +16,27 @@ class TestSuiteRunner(JunoDiscoverRunner):
 
     """
 
+    def __init__(self, *args, **kwargs):
+        self.slow_test_count = int(kwargs.get('slow_test_count', 0))
+        super(TestSuiteRunner, self).__init__(*args, **kwargs)
+
+    @classmethod
+    def add_arguments(cls, parser):
+        super(TestSuiteRunner, cls).add_arguments(parser)
+        parser.add_argument('-s', '--slow-tests',
+            action='store',
+            dest='slow_test_count',
+            default=0,
+            help="Print given number of slowest tests"
+        )
+
     def run_tests(self, test_labels, extra_tests=None, **kwargs):
         """
         Run the unit tests for all the test labels in the provided list.
         """
+
+
+
         self.setup_test_environment()
         suite = self.build_suite(test_labels, extra_tests)
 

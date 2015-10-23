@@ -68,6 +68,8 @@ class TextTestResult(result.TestResult):
     separator1 = '=' * 70
     separator2 = '-' * 70
 
+    slow_tests = []
+
     RERUN_LOG_FILE_NAME = getattr(
         settings,
         "TEST_RUNNER_RERUN_LOG_FILE_NAME",
@@ -84,7 +86,7 @@ class TextTestResult(result.TestResult):
         True
     )
 
-    def __init__(self, stream, descriptions, verbosity, total_tests=None):
+    def __init__(self, stream, descriptions, verbosity, total_tests=None, slow_test_count=10):
         super(TextTestResult, self).__init__()
         self.stream = stream
         self.showAll = verbosity > 1
@@ -94,6 +96,7 @@ class TextTestResult(result.TestResult):
         # Custom properties
         self.total_tests = total_tests
         self.current_test_number = 1
+        self.slow_test_count = slow_test_count
 
         self.openLogFiles()
 
@@ -206,6 +209,18 @@ class TextTestResult(result.TestResult):
     def stopTest(self, test):
         super(TextTestResult, self).stopTest(test)
 
+        if self.slow_test_count:
+            # sort the list, then only take the required number
+            elapsed = {
+                'name': test.id(), 
+                'elapsed': time.time() - self.test_start_time
+            }
+            self.slow_tests.append(elapsed)
+            self.slow_tests = sorted(
+                self.slow_tests,
+                reverse=True,
+                key=lambda k: k['elapsed'])[:self.slow_test_count]
+
         if self.showAll:
             self.stream.writeln(
                 "[..%04d <- %04d] Elapsed: %s; Remaining: %s; %s] " % (
@@ -218,6 +233,8 @@ class TextTestResult(result.TestResult):
             )
 
     def startTest(self, test):
+
+        self.test_start_time = time.time()
         super(TextTestResult, self).startTest(test)
 
         if self.showAll:
@@ -344,7 +361,8 @@ class TextTestRunner(unittest.TextTestRunner):
             failfast=False,
             buffer=False,
             resultclass=None,
-            total_tests=None
+            total_tests=None,
+            slow_test_count=0
     ):
         self.stream = _WritelnDecorator(stream)
         self.descriptions = descriptions
@@ -354,13 +372,15 @@ class TextTestRunner(unittest.TextTestRunner):
         if resultclass is not None:
             self.resultclass = resultclass
         self.total_tests = total_tests
+        self.slow_test_count = slow_test_count
 
     def _makeResult(self):
         return self.resultclass(
             self.stream,
             self.descriptions,
             self.verbosity,
-            total_tests=self.total_tests
+            total_tests=self.total_tests,
+            slow_test_count=self.slow_test_count
         )
 
     def run(self, test):
@@ -425,6 +445,13 @@ class TextTestRunner(unittest.TextTestRunner):
             self.stream.writeln(" (%s)" % (", ".join(infos),))
         else:
             self.stream.write("\n")
+
+        if result.slow_tests:
+            self.stream.writeln("Slow tests: ")
+        for test in result.slow_tests:
+            self.stream.writeln(
+                "{0} : {1}".format(test['name'], result.format_time(test['elapsed']))
+            )
 
         result.closeLogFiles()
         return result
