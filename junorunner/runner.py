@@ -12,5 +12,6 @@ class JunoDiscoverRunner(DiscoverRunner):
         return TextTestRunner(
             verbosity=self.verbosity,
             failfast=self.failfast,
-            total_tests=len(suite._tests)
+            total_tests=len(suite._tests),
+            slow_test_count=self.slow_test_count
         ).run(suite)
