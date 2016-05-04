@@ -1,7 +1,11 @@
 language: python
 python:
   - "2.7"
-# command to install tox depdendency, which then knows how to install any other dependencies
-install: "pip install tox==1.8.1"
+  - "3.4"
+
+# command to install tox depdendency, which then knows how to install
+# any other dependencies
+install: "pip install tox-travis"
+
 # command to run tests
 script: tox
