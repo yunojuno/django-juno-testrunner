@@ -20,6 +20,12 @@ except ImportError:
     # Django 1.7+ because bundled unittest is going away
     from unittest import result
 
+try:
+    # Django 1.6
+    from django.utils.module_loading import import_by_path as import_string
+except ImportError:
+    from django.utils.module_loading import import_string
+
 from django.conf import settings
 
 try:
@@ -85,6 +91,10 @@ class TextTestResult(result.TestResult):
         'TEST_RUNNER_IMMEDIATELY_SHOW_FAILS',
         True
     )
+    JUNIT_FILE = getattr(
+        settings,
+        'TEST_RUNNER_JUNIT_XML',
+        None)
 
     def __init__(self, stream, descriptions, verbosity, total_tests=None, slow_test_count=10):
         super(TextTestResult, self).__init__()
@@ -92,6 +102,11 @@ class TextTestResult(result.TestResult):
         self.showAll = verbosity > 1
         self.dots = verbosity == 1
         self.descriptions = descriptions
+
+        self.createJunitXml = self.JUNIT_FILE is not None
+
+        if self.createJunitXml:
+            self.ETree = import_string('xml.etree')
 
         # Custom properties
         self.total_tests = total_tests
@@ -103,6 +118,9 @@ class TextTestResult(result.TestResult):
     def startTestRun(self):
         super(TextTestResult, self).startTestRun()
         self.start_time = time.time()
+
+        if self.createJunitXml:
+            self.tree = self.ETree.Element('testsuite')
 
     def openLogFiles(self):
         self.rerun_log_file = open(self.RERUN_LOG_FILE_NAME, "w+")
@@ -259,6 +277,9 @@ class TextTestResult(result.TestResult):
             self.stream.write(SET_OK_OUTPUT + '.' + RESET_OUTPUT)
             self.stream.flush()
 
+        if self.createJunitXml:
+            testcase = self._make_testcase_element(test)
+
     def addError(self, test, err):
         super(TextTestResult, self).addError(test, err)
         if self.showAll:
@@ -277,6 +298,11 @@ class TextTestResult(result.TestResult):
             self.stream.flush()
 
         self.addToReRunLog(test)
+
+        if self.createJunitXml:
+            testcase = self._make_testcase_element(test)
+            test_result = self.ETree.SubElement(testcase, 'error')
+            self._add_tb_to_test(test, test_result, err)
 
     def addFailure(self, test, err):
         super(TextTestResult, self).addFailure(test, err)
@@ -298,6 +324,11 @@ class TextTestResult(result.TestResult):
 
         self.addToReRunLog(test)
 
+        if self.createJunitXml:
+            testcase = self._make_testcase_element(test)
+            test_result = self.ETree.SubElement(testcase, 'failure')
+            self._add_tb_to_test(test_test_result, err)
+
     def addSkip(self, test, reason):
         super(TextTestResult, self).addSkip(test, reason)
         if self.showAll:
@@ -305,6 +336,11 @@ class TextTestResult(result.TestResult):
         elif self.dots:
             self.stream.write("s")
             self.stream.flush()
+
+        if self.createJunitXml:
+            testcase = self._make_testcase_element(test)
+            test_result = self.ETree.SubElement(testcase, 'skipped')
+            test_result.set('message', 'Test Skipped: %s' % reason)
 
     def addExpectedFailure(self, test, err):
         super(TextTestResult, self).addExpectedFailure(test, err)
@@ -314,6 +350,11 @@ class TextTestResult(result.TestResult):
             self.stream.write("x")
             self.stream.flush()
 
+        if self.createJunitXml:
+            testcase = self._make_testcase_element(test)
+            test_result = self.ETree.SubElement(testcase, 'skipped')
+            self._add_tb_to_test(test, test_result, err)
+
     def addUnexpectedSuccess(self, test):
         super(TextTestResult, self).addUnexpectedSuccess(test)
         if self.showAll:
@@ -321,6 +362,11 @@ class TextTestResult(result.TestResult):
         elif self.dots:
             self.stream.write("u")
             self.stream.flush()
+
+        if self.createJunitXml:
+            testcase = self._make_testcase_element(test)
+            test_result = self.ETree.SubElement(testcase, 'skipped')
+            test_result.set('message', 'Test Skipped: Unexpected Success')
 
     def printErrors(self):
         if self.dots or self.showAll:
@@ -342,7 +388,39 @@ class TextTestResult(result.TestResult):
 
     def stopTestRun(self):
         super(TextTestResult, self).stopTestRun()
+
+        if self.createJunitXml:
+            run_time_taken = time.time() - self.start_time
+            self.tree.set('name', 'Django Project Tests')
+            self.tree.set('errors', str(len(self.errors)))
+            self.tree.set('failures' , str(len(self.failures)))
+            self.tree.set('skips', str(len(self.skipped)))
+            self.tree.set('tests', str(self.testsRun))
+            self.tree.set('time', "%.3f" % run_time_taken)
+
+            output = self.ETree.ElementTree(self.tree)
+            output.write(self.JUNIT_FILE, encoding="utf-8")
+
         self.printErrors()
+
+    def _make_testcase_element(self, test):
+        time_taken = time.time() - self.start_time
+        classname = ('%s.%s' % (test.__module__, test.__class__.__name__)).split('.')
+        testcase = self.ETree.SubElement(self.tree, 'testcase')
+        testcase.set('time', "%.6f" % time_taken)
+        testcase.set('classname', '.'.join(classname))
+        testcase.set('name', test._testMethodName)
+
+        return testcase
+
+    def _add_tb_to_test(self, test, test_result, err):
+        '''Add a traceback to the test result element'''
+
+        exc_class, exc_value, tb = err
+        tb_str = self._exc_info_to_string(err, test)
+        test_result.set('type', '%s.%s' % (exc_class.__module__, exc_class.__name__))
+        test_result.set('message', str(exc_value))
+        test_result.text = tb_str
 
 
 class TextTestRunner(unittest.TextTestRunner):
