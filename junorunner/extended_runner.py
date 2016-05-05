@@ -278,7 +278,7 @@ class TextTestResult(result.TestResult):
             self.stream.flush()
 
         if self.createJunitXml:
-            testcase = self._make_testcase_element(test)
+            self._make_testcase_element(test)
 
     def addError(self, test, err):
         super(TextTestResult, self).addError(test, err)
@@ -327,7 +327,7 @@ class TextTestResult(result.TestResult):
         if self.createJunitXml:
             testcase = self._make_testcase_element(test)
             test_result = self.ETree.SubElement(testcase, 'failure')
-            self._add_tb_to_test(test_test_result, err)
+            self._add_tb_to_test(test, test_result, err)
 
     def addSkip(self, test, reason):
         super(TextTestResult, self).addSkip(test, reason)
