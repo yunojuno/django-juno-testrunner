@@ -82,6 +82,13 @@ or ::
 
 (At YunoJuno, we run our test suites via Fabric, with a ``:rerun`` option that reads in the file and passes each line — i.e. each bad test — as an extra arg to the test client.)
 
+Generating JUnit compatible XML
+'''''''''''''''''''''''''''''''
+
+If you are running your tests in an environment that can process JUnit XML files (e.g. in Jenkins), you may want to set ``TEST_RUNNER_JUNIT_XML``:
+
+    TEST_RUNNER_JUNIT_XML = os.path.join(BASE_DIR, 'junit.xml')
+
 Roadmap
 -------
 
