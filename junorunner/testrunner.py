@@ -34,13 +34,10 @@ class TestSuiteRunner(JunoDiscoverRunner):
         """
         Run the unit tests for all the test labels in the provided list.
         """
-
-
-
         self.setup_test_environment()
         suite = self.build_suite(test_labels, extra_tests)
 
-        print("%i tests found" % len(suite._tests))
+        print("%i tests found" % self.get_test_count(suite))
 
         old_config = self.setup_databases()
         result = self.run_suite(suite)

@@ -80,13 +80,11 @@ or ::
 
     $ ./manage.py test $(< test_rerun.txt)  # bash
 
-(At YunoJuno, we run our test suites via Fabric, with a ``:rerun`` option that reads in the file and passes each line — i.e. each bad test — as an extra arg to the test client.)
 
 Roadmap
 -------
 
 - improve time-left-to-run estimate
-- support use on < Django 1.6 (the code exists in another repo's history, it just needs some dusting off)
 
 Contributing
 ------------
