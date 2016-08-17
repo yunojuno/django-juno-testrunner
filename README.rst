@@ -93,6 +93,7 @@ Contributions and bug reports are welcome. Pull requests adding jazzy new featur
 
 Thanks to:
 
-    * Tom Wardill for Python3 support - https://github.com/tomwardill
+* [Tom Wardill](https://github.com/tomwardill) for Python3 support.
+* [Gergely Polonkai](https://github.com/gergelypolonkai) for JUnit XML support.
 
 
