@@ -11,7 +11,7 @@ import sys
 import time
 import unittest
 import colorama
-
+from importlib import import_module
 
 try:
     # Django 1.6
@@ -19,12 +19,6 @@ try:
 except ImportError:
     # Django 1.7+ because bundled unittest is going away
     from unittest import result
-
-try:
-    # Django 1.6
-    from django.utils.module_loading import import_by_path as import_string
-except ImportError:
-    from django.utils.module_loading import import_string
 
 from django.conf import settings
 
@@ -106,7 +100,7 @@ class TextTestResult(result.TestResult):
         self.createJunitXml = self.JUNIT_FILE is not None
 
         if self.createJunitXml:
-            self.ETree = import_string('xml.etree')
+            self.ETree = import_module('xml.etree.ElementTree')
 
         # Custom properties
         self.total_tests = total_tests
