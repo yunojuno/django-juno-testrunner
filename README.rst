@@ -84,7 +84,7 @@ or ::
 Generating JUnit compatible XML
 '''''''''''''''''''''''''''''''
 
-If you are running your tests in an environment that can process JUnit XML files (e.g. in Jenkins), you may want to set ``TEST_RUNNER_JUNIT_XML``:
+If you are running your tests in an environment that can process JUnit XML files (e.g. in Jenkins), you may want to set ``TEST_RUNNER_JUNIT_XML``::
 
     TEST_RUNNER_JUNIT_XML = os.path.join(BASE_DIR, 'junit.xml')
 
