@@ -12,8 +12,8 @@ class TestSuiteRunner(JunoDiscoverRunner):
     * logging the dotted path for the failing tests to a file to make it
         easier to re-run failed tests via the YJ run_tests Fabric task
     * numbering tests/showing a progress counter
-    * colourised output (and yes, that's the correct spelling of 'colourised' ;-) )
-
+    * colourised output (and yes, that's the correct spelling of
+        'colourised' ;-) )
     """
 
     def __init__(self, *args, **kwargs):
@@ -24,16 +24,16 @@ class TestSuiteRunner(JunoDiscoverRunner):
     def add_arguments(cls, parser):
         super(TestSuiteRunner, cls).add_arguments(parser)
         parser.add_argument('-s', '--slow-tests',
-            action='store',
-            dest='slow_test_count',
-            default=0,
-            help="Print given number of slowest tests"
-        )
+                            action='store',
+                            dest='slow_test_count',
+                            default=0,
+                            help="Print given number of slowest tests")
 
     def run_tests(self, test_labels, extra_tests=None, **kwargs):
         """
         Run the unit tests for all the test labels in the provided list.
         """
+
         self.setup_test_environment()
         suite = self.build_suite(test_labels, extra_tests)
 

@@ -38,10 +38,16 @@ SET_FAILURE_TEXT = colorama.Fore.YELLOW
 
 SET_COUNTER_OUTPUT = colorama.Fore.YELLOW + colorama.Back.BLUE
 
-SET_OK_OUTPUT = colorama.Fore.BLACK + colorama.Back.GREEN
-SET_FAIL_OUTPUT = colorama.Fore.YELLOW + colorama.Back.RED
-SET_ERROR_OUTPUT = colorama.Fore.WHITE + colorama.Back.RED + colorama.Style.BRIGHT
-RESET_OUTPUT = colorama.Fore.RESET + colorama.Back.RESET + colorama.Style.RESET_ALL
+SET_OK_OUTPUT = colorama.Fore.BLACK + \
+                colorama.Back.GREEN
+SET_FAIL_OUTPUT = colorama.Fore.YELLOW + \
+                  colorama.Back.RED
+SET_ERROR_OUTPUT = colorama.Fore.WHITE + \
+                   colorama.Back.RED + \
+                   colorama.Style.BRIGHT
+RESET_OUTPUT = colorama.Fore.RESET + \
+               colorama.Back.RESET + \
+               colorama.Style.RESET_ALL
 
 
 class _WritelnDecorator(object):
@@ -90,7 +96,8 @@ class TextTestResult(result.TestResult):
         'TEST_RUNNER_JUNIT_XML',
         None)
 
-    def __init__(self, stream, descriptions, verbosity, total_tests=None, slow_test_count=10):
+    def __init__(self, stream, descriptions, verbosity,
+                 total_tests=None, slow_test_count=10):
         super(TextTestResult, self).__init__()
         self.stream = stream
         self.showAll = verbosity > 1
@@ -209,11 +216,11 @@ class TextTestResult(result.TestResult):
                 'fail_count': len(self.failures),
                 'skip_count': len(self.skipped),
                 'pass_count': (
-                    self.current_test_number
-                    - len(self.errors)
-                    - len(self.failures)
-                    - len(self.skipped)
-                    - 1  # to account for the += 1 in startTest
+                    self.current_test_number -
+                    len(self.errors) -
+                    len(self.failures) -
+                    len(self.skipped) -
+                    1  # to account for the += 1 in startTest
                 )
             }
         )
@@ -224,7 +231,7 @@ class TextTestResult(result.TestResult):
         if self.slow_test_count:
             # sort the list, then only take the required number
             elapsed = {
-                'name': test.id(), 
+                'name': test.id(),
                 'elapsed': time.time() - self.test_start_time
             }
             self.slow_tests.append(elapsed)
@@ -282,7 +289,8 @@ class TextTestResult(result.TestResult):
             formatted_err = self._exc_info_to_string(err, test)
             if self.IMMEDIATELY_SHOW_FAILS:
                 self.printSingleError(
-                    SET_ERROR_OUTPUT + " ERROR " + RESET_OUTPUT + " Immediate details",
+                    SET_ERROR_OUTPUT + " ERROR " +
+                    RESET_OUTPUT + " Immediate details",
                     test,
                     formatted_err
                 )
@@ -307,7 +315,8 @@ class TextTestResult(result.TestResult):
             formatted_err = self._exc_info_to_string(err, test)
             if self.IMMEDIATELY_SHOW_FAILS:
                 self.printSingleError(
-                    SET_FAIL_OUTPUT + " FAIL " + RESET_OUTPUT + " Immediate details",
+                    SET_FAIL_OUTPUT + " FAIL " +
+                    RESET_OUTPUT + " Immediate details",
                     test,
                     formatted_err
                 )
@@ -387,7 +396,7 @@ class TextTestResult(result.TestResult):
             run_time_taken = time.time() - self.start_time
             self.tree.set('name', 'Django Project Tests')
             self.tree.set('errors', str(len(self.errors)))
-            self.tree.set('failures' , str(len(self.failures)))
+            self.tree.set('failures', str(len(self.failures)))
             self.tree.set('skips', str(len(self.skipped)))
             self.tree.set('tests', str(self.testsRun))
             self.tree.set('time', "%.3f" % run_time_taken)
@@ -399,7 +408,8 @@ class TextTestResult(result.TestResult):
 
     def _make_testcase_element(self, test):
         time_taken = time.time() - self.start_time
-        classname = ('%s.%s' % (test.__module__, test.__class__.__name__)).split('.')
+        classname = ('%s.%s' % (test.__module__,
+                                test.__class__.__name__)).split('.')
         testcase = self.ETree.SubElement(self.tree, 'testcase')
         testcase.set('time', "%.6f" % time_taken)
         testcase.set('classname', '.'.join(classname))
@@ -412,7 +422,8 @@ class TextTestResult(result.TestResult):
 
         exc_class, exc_value, tb = err
         tb_str = self._exc_info_to_string(err, test)
-        test_result.set('type', '%s.%s' % (exc_class.__module__, exc_class.__name__))
+        test_result.set('type', '%s.%s' % (exc_class.__module__,
+                                           exc_class.__name__))
         test_result.set('message', str(exc_value))
         test_result.text = tb_str
 
@@ -502,9 +513,13 @@ class TextTestRunner(unittest.TextTestRunner):
             self.stream.write(SET_FAIL_OUTPUT + " FAILED " + RESET_OUTPUT)
             failed, errored = list(map(len, (result.failures, result.errors)))
             if failed:
-                infos.append("%sfailures=%d%s" % (SET_FAILURE_TEXT, failed, RESET_OUTPUT))
+                infos.append("%sfailures=%d%s" % (SET_FAILURE_TEXT,
+                                                  failed,
+                                                  RESET_OUTPUT))
             if errored:
-                infos.append("%serrors=%d%s" % (SET_ERROR_TEXT, errored, RESET_OUTPUT))
+                infos.append("%serrors=%d%s" % (SET_ERROR_TEXT,
+                                                errored,
+                                                RESET_OUTPUT))
         else:
             self.stream.write(SET_OK_OUTPUT + " OK " + RESET_OUTPUT)
         if skipped:
@@ -522,7 +537,8 @@ class TextTestRunner(unittest.TextTestRunner):
             self.stream.writeln("Slow tests: ")
         for test in result.slow_tests:
             self.stream.writeln(
-                "{0} : {1}".format(test['name'], result.format_time(test['elapsed']))
+                "{0} : {1}".format(test['name'],
+                                   result.format_time(test['elapsed']))
             )
 
         result.closeLogFiles()
