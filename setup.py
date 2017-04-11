@@ -19,7 +19,7 @@ setup(
     url='https://github.com/yunojuno/django-juno-testrunner.git',
     license='MIT',
     packages=find_packages(),
-    install_requires=['colorama'],
+    install_requires=['Django>=1.8', 'colorama'],
     extras_require={'junorunner': ['colorama', ]},
     classifiers=[
             'Environment :: Web Environment',
@@ -35,6 +35,8 @@ setup(
             'Programming Language :: Python :: 2',
             'Programming Language :: Python :: 2.7',
             'Programming Language :: Python :: 3',
+            'Programming Language :: Python :: 3.4',
+            'Programming Language :: Python :: 3.5',
             'Programming Language :: Python :: 3.6',
             'Topic :: Internet :: WWW/HTTP',
             'Topic :: Internet :: WWW/HTTP :: Dynamic Content',
