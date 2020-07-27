@@ -13,7 +13,7 @@ This is a drop-in test-runner alternative for Django 1.6+ which takes DiscoverRu
 - Displays the elapsed time so far and a (rough) estimate of how long the remaining tests will take
 - Colourised output to make it easier to grok how your test run is going (Plus, it's prettier)
 
-The Python package you get, if you're interested, is called ``junorunner``. That's because it came from the YunoJuno `codebase <https://www.yunojuno.com/changelog/>`_, and we'd put all of our pun skills into copy for the site, so we played it safe this time.
+The Python package you get, if you're interested, is called ``junorunner``. That's because it came from the `YunoJuno <https://www.yunojuno.com/>`_ codebase, and we'd put all of our pun skills into copy for the site, so we played it safe this time.
 
 Installation
 ------------
